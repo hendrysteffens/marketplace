@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../layout.xhtml">
+
+	<ui:define name="content">
+		<h:form id="entryForm">
+			<p:panel header="Informações do lançamento">
+				<h:panelGrid columns="1">
+					<p:outputLabel for="observation" value="observation: " />
+					<p:inputText id="observation" value="#{entrySave.entry.observation}" />
+					<p:outputLabel for="total" value="total: " />
+					<p:inputNumber id="total" value="#{entrySave.entry.total}" />
+					<p:outputLabel for="datetime" value="Data inicial:" />
+					<p:calendar id="datetime" value="#{entrySave.entry.startDate}" pattern="dd/MM/yyyy HH:mm:ss" converter="dateTimeConverter" />
+					<p:outputLabel for="datetime" value="Data final:" />
+					<p:calendar id="datetime2" value="#{entrySave.entry.endDate}" pattern="dd/MM/yyyy HH:mm:ss" converter="dateTimeConverter" />
+					<p:pickList id="pickList" value="#{entrySave.entryItems}" var="entryItems" itemLabel="#{entryItems}" itemValue="#{entryItems}" />
+					<h:commandButton value="Save" action="#{entrySave.save}" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

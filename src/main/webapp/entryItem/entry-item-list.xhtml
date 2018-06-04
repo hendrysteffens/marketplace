@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../layout.xhtml">
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:panel header="Lista de itens">
+				<p:dataTable id="table" var="entryItem" value="#{listEntryItem.entryItems}">
+					<p:column>
+						<f:facet name="header"># Id</f:facet>
+						<h:outputText value="#{entryItem.id}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header"># Descrição</f:facet>
+						<h:outputText value="#{entryItem.description}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header"># Valor</f:facet>
+						<h:outputText value="#{entryItem.value}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">Action</f:facet>
+						<h:commandButton id="delete-button"
+										 action="#{listEntryItem.delete(entryItem)}"
+										 value="Delete" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+
