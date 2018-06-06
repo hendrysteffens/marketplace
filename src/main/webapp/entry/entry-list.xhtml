@@ -40,6 +40,12 @@
 										 value="Delete" />
 					</p:column>
 				</p:dataTable>
+				<p:outputLabel value="Consulta para somar o total dos lançamentos, cujo a média dos itens foi maior ou igual à R$ 100,00:" /><br/>
+				<h:commandButton value="Consultar " action="#{listEntry.listByAverageGreaterThanOneHundred}" />
+				<br/>
+				<p:outputLabel value="Consulta para trazer os 10 lançamentos que possuam o maior valor de itens e tenham a
+				descrição começando com a letra A. Sendo que só devem mostrar lançamentos no qual o somatório desses itens sejam maiores que R$ 50,00:" /><br/>
+				<h:commandButton value="Consultar " action="#{listEntry.listTop10ByTotalGreaterThanFiftyAndDescriptionStartsWithA}" />
 			</p:panel>
 		</h:form>
 	</ui:define>

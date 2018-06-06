@@ -35,6 +35,7 @@ public class SaveEntryItemHandler {
 
 	public String save() {
 		entryItemRepository.save(entryItem);
+		entryItem = new EntryItem();
 		return "/entryItem/entry-item-list.xhtml?faces-redirect=true";
 	}
 

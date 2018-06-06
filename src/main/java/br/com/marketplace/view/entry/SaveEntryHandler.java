@@ -1,12 +1,16 @@
 package br.com.marketplace.view.entry;
 
+import br.com.marketplace.controller.entry.EntryController;
 import br.com.marketplace.model.Entry;
 import br.com.marketplace.model.EntryItem;
 import br.com.marketplace.repository.EntryItemRepository;
 import br.com.marketplace.repository.EntryRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.annotation.RequestAction;
 import org.ocpsoft.rewrite.el.ELBeanName;
+import org.ocpsoft.rewrite.faces.annotation.Deferred;
+import org.ocpsoft.rewrite.faces.annotation.IgnorePostback;
 import org.primefaces.model.DualListModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -23,6 +27,9 @@ import java.util.stream.Collectors;
 @ELBeanName(value = "entrySave")
 @Join(path = "/entry", to = "/entry/entry-form.jsf")
 public class SaveEntryHandler {
+
+	@Autowired
+	private EntryController entryController;
 	@Autowired
 	private EntryRepository entryRepository;
 	@Autowired
@@ -39,11 +46,18 @@ public class SaveEntryHandler {
 		entryItems = new DualListModel<EntryItem>(entryItemsSource, entryItemsTarget);
 	}
 
+	@Deferred
+	@RequestAction
+	@IgnorePostback
+	public void loadData() {
+		init();
+	}
+
 	public DualListModel<EntryItem> getEntryItems() {
 		return entryItems;
 	}
 
-	public void setEntryItems(DualListModel<EntryItem>  entryItems) {
+	public void setEntryItems(DualListModel<EntryItem> entryItems) {
 		this.entryItems = entryItems;
 	}
 
@@ -53,14 +67,15 @@ public class SaveEntryHandler {
 
 	public String save() {
 		entry.entryItems = loadDualistValues(entryItems.getTarget());
-		entryRepository.save(entry);
+		entryController.save(entry);
+		entry = new Entry();
 		return "/entry/entry-list.xhtml?faces-redirect=true";
 	}
 
-	private Set<EntryItem> loadDualistValues(List<EntryItem> target) {
-		if(target.isEmpty()) return null;
+	public Set<EntryItem> loadDualistValues(List<EntryItem> target) {
+		if (target.isEmpty()) return null;
 		List<EntryItem> items = new ArrayList<>();
-		for (Object object: target) {
+		for (Object object : target) {
 			items.add(stringToEntryItem(object));
 		}
 		return items.stream().collect(Collectors.toSet());
@@ -72,7 +87,7 @@ public class SaveEntryHandler {
 		String[] values = StringUtils.substringsBetween(stringDTO, "=", ",");
 		item.setId(Integer.parseInt(values[0]));
 		item.setDescription(values[1]);
-		if(!values[2].equalsIgnoreCase("null"))
+		if (!values[2].equalsIgnoreCase("null"))
 			item.setValue(Double.parseDouble(values[2]));
 		return item;
 	}

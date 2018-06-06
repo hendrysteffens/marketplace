@@ -40,6 +40,14 @@ public class ListEntryHandler {
 		return entries;
 	}
 
+	public void listByAverageGreaterThanOneHundred() {
+		entries = entryRepository.findAllWithAverageGreaterThanOneHundred();
+	}
+
+	public void listTop10ByTotalGreaterThanFiftyAndDescriptionStartsWithA() {
+		entries = entryRepository.findTop10ByTotalGreaterThanAndDescription(50D);
+	}
+
 	public String delete(Entry entry) {
 		entryRepository.delete(entry);
 		loadData();

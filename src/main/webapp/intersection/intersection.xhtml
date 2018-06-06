@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition template="../layout.xhtml">
+
+	<ui:define name="content">
+		<h:form id="intersection">
+			<p:panel header="Valida se tem interseção entre as duas faixas.">
+				<h:panelGrid>
+					<p:row>
+						<p:outputLabel value="Faixa 1: " />
+						<p:column>
+							<p:inputNumber id="firstIntervalOne" value="#{intersection.firstIntervalOne}"></p:inputNumber>
+						</p:column>
+						<p:column>
+							<p:inputNumber id="secondIntervalOne" value="#{intersection.secondIntervalOne}"></p:inputNumber>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:outputLabel value="Faixa 2: " />
+						<p:column>
+							<p:inputNumber id="firstIntervalTwo" value="#{intersection.firstIntervalTwo}"></p:inputNumber>
+						</p:column>
+						<p:column>
+							<p:inputNumber id="secondIntervalRwo" value="#{intersection.secondIntervalTwo}"></p:inputNumber>
+						</p:column>
+					</p:row>
+					<h:commandButton value="Consultar" action="#{intersection.validate}" />
+				</h:panelGrid>
+				<p:messages id="messages" showDetail="true" closable="true">
+				</p:messages>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
